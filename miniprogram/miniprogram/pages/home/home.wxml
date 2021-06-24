@@ -1,0 +1,31 @@
+<!--miniprogram/pages/home.wxml-->
+<swiper autoplay="true" interval="2000" duration="1000">
+  <block>
+    <swiper-item wx:for="{{swiperImgUrls}}" wx:key="url">
+      <image src="{{item.url}}" mode="aspectFill" class="img"></image>
+    </swiper-item>
+  </block>
+</swiper>
+
+<view class="container">
+  <button class="primary-btn" bind:tap="onPark">模拟识别车牌</button>
+  <button class="primary-btn" bindtap="bind">绑定车牌</button>
+
+
+<view class="tip">附近的车位<text style="float:right; margin-right:30rpx" bind:tap="refreshParking">刷新</text></view>
+
+  
+
+<view class="playlist-container">
+  <block wx:for="{{parkingList}}" wx:key="{{item.parkingId}}"><x-parking-list parking="{{item}}"></x-parking-list></block>
+
+</view>
+
+</view>
+<x-login
+    modalShow="{{modalShow}}"
+    bind:loginSuccess="onLoginSuccess"
+    bind:loginFail="onLoginFail" ></x-login>
+
+<!-- <x-bottom-modal modalShow="{{modalShow}}"/>
+

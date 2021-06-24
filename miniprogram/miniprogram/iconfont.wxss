@@ -1,0 +1,66 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 2555667 */
+  src: url('//at.alicdn.com/t/font_2555667_ktqobi3hipk.woff2?t=1623203351642') format('woff2'),
+       url('//at.alicdn.com/t/font_2555667_ktqobi3hipk.woff?t=1623203351642') format('woff'),
+       url('//at.alicdn.com/t/font_2555667_ktqobi3hipk.ttf?t=1623203351642') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-zanwushuju:before {
+  content: "\e62f";
+}
+
+.icon-dizhi:before {
+  content: "\e6ba";
+}
+
+.icon-juli:before {
+  content: "\e676";
+}
+
+.icon-shanchu:before {
+  content: "\e636";
+}
+
+.icon-binding:before {
+  content: "\e611";
+}
+
+.icon-backspace-fill:before {
+  content: "\e610";
+}
+
+.icon-tubiaozhizuomoban:before {
+  content: "\e601";
+}
+
+.icon-tuichudenglu:before {
+  content: "\e615";
+}
+
+.icon-guanyuwomen:before {
+  content: "\e62e";
+}
+
+.icon-ticket-fill:before {
+  content: "\e63c";
+}
+
+.icon-Home_icon_chepaiquer-copy:before {
+  content: "\e626";
+}
+
+.icon-peizhitubiaosvg-:before {
+  content: "\e669";
+}
+
+.icon-quxiao:before {
+  content: "\e625";
+}

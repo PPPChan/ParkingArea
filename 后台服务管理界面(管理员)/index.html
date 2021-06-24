@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)# -->
+<html lang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
+
+
+    <title>智能机动车停车管理系统</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./Dashboard Template for Bootstrap_files/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./Dashboard Template for Bootstrap_files/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./Dashboard Template for Bootstrap_files/dashboard.css" rel="stylesheet">
+
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">智能机动车停车管理系统</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a>欢迎您，</a></li>
+                    <li><a href="#">老板</a></a></li>
+                    <li><a id="logout" href="#">退出登录<img src="img/tuichu.png" alt=""></a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search...">
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active"><a id="overview" href="#">订单总览</a></li>
+                    
+                    <li><a id="overview" href="index2.html">收入总览</a></li>
+                    <li><a id="orderMaster" href="#">订单管理</a></li>
+                    <li><a id="parkingMaster" href="#">停车场管理</a></li>
+                    <li><a id="employeeMaster" href="#">员工管理</a></li>
+                    <li><a id="userMaster" href="#">用户管理</a></li>
+                </ul>
+            </div>
+
+            <div>
+
+                <div id="overviewDiv" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <h1 class="page-header">近一周新增订单</h1>
+
+
+
+                    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+                    <div id="main" style="width: 100%;height:650px;"></div>
+
+
+
+
+                </div>
+
+
+            
+
+                <div hidden id="parkingListDiv" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <h2 class="sub-header">停车场列表
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createParking"
+                            data-whatever="@fat" style="float: right;">新建停车场</button>
+                    </h2>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>名称</th>
+                                    <th>地址</th>
+                                    <th>时价</th>
+                                    <th>总车位</th>
+                                    <th>已停车位</th>
+                                    <th>空余车位</th>
+                                    <th>营业状态</th>
+                                    <th>创建时间</th>
+                                    <th>更新时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="parkingList">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+                <div hidden id="employeeListDiv" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <h2 class="sub-header">员工列表
+                        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="float: right;">新建停车场</button> -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createEmployee"
+                            data-whatever="@fat" style="float: right;">添加员工</button>
+                    </h2>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>员工号</th>
+                                    <th>密码</th>
+                                    <th>姓名</th>
+                                    <th>手机号</th>
+                                    <th>创建时间</th>
+                                    <th>更新时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="employeeList">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div hidden id="orderListDiv" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <h2 class="sub-header">订单列表</h2>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>订单号</th>
+                                    <th>停车场名称</th>
+                                    <th>停车场时价</th>
+                                    <th>用户openid</th>
+                                    <th>车牌号</th>
+                                    <th>开始停车时间</th>
+                                    <th>结束停车时间</th>
+                                    <th>订单金额</th>
+                                    <th>支付状态</th>
+                                    <th>管理</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orderList">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-md-12 column" id="orderPage">
+
+                    </div>
+
+                </div>
+
+
+                <div hidden id="userListDiv" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <h2 class="sub-header">用户列表</h2>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>openid</th>
+                                    <th>用户名</th>
+                                    <th>手机号</th>
+                                    <th>用户类型</th>
+                                    <th>注册时间</th>
+                                    <th>更新时间</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userList">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div hidden id="personal" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <h2 class="sub-header">个人信息
+                        <button type="button" class="btn btn-primary" style="float: right;"
+                            id="modifyPasswordBtn">修改密码</button>
+                    </h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="employeeName">名字</label>
+                            <input type="text" class="form-control" id="employeeNameP" placeholder="Email" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="employeePhone">手机号</label>
+                            <input type="text" class="form-control" id="employeePhone" placeholder="Password" disabled>
+                        </div>
+                        <button type="button" class="btn btn-default" id="modify">修改信息</button>
+                        <button hidden type="button" class="btn btn-default" id="modifySubmit">提交修改</button>
+                    </form>
+                </div>
+
+                <div hidden id="modifyPassword" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <h2 class="sub-header">修改密码</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="employeePhone">新密码</label>
+                            <input type="password" class="form-control" id="pwd1">
+                        </div>
+                        <div class="form-group">
+                            <label for="employeePhone">确认密码</label>
+                            <input type="password" class="form-control" id="pwd2" onkeyup="validate()"><span
+                                id="tishi"></span>
+                        </div>
+                        <button type="button" class="btn btn-default" id="changePassword"
+                            disabled="disabled">确认修改</button>
+                    </form>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="createParking" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">新建停车场</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="parking-name" class="control-label">停车场名称:</label>
+                            <input type="text" class="form-control" id="parkingName" name="parkingName">
+                        </div>
+                        <div class="form-group">
+                            <label for="parking-address" class="control-label">停车场地址:</label>
+                            <input type="text" class="form-control" name="parkingAddress">
+                        </div>
+                        <div class="form-group">
+                            <label for="hour-price" class="control-label">每小时价格:</label>
+                            <input type="number" class="form-control" name="hourPrice">
+                        </div>
+                        <div class="form-group">
+                            <label for="parking-total" class="control-label">停车位总数:</label>
+                            <input type="number" class="form-control" name="parkingTotal">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        onclick="createParking()">添加</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="updateParking" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">修改停车场信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="disabledTextInput">停车场编号</label>
+                            <input name="parkingId" class="form-control" id="disabledInput" type="number" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="parking-name" class="control-label">停车场名称:</label>
+                            <input id="updateName" type="text" class="form-control" id="parkingName" name="updateName">
+                        </div>
+                        <div class="form-group">
+                            <label for="parking-address" class="control-label">停车场地址:</label>
+                            <input id="updateAddress" type="text" class="form-control" name="updateAddress">
+                        </div>
+                        <div class="form-group">
+                            <label for="hour-price" class="control-label">每小时价格:</label>
+                            <input id="updatePrice" type="number" class="form-control" name="updatePrice">
+                        </div>
+                        <div class="form-group">
+                            <label for="parking-total" class="control-label">停车位总数:</label>
+                            <input id="updateTotal" type="number" class="form-control" name="updateTotal">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        onclick="updateParking()">修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="createEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">添加员工</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="parking-name" class="control-label">姓名:</label>
+                            <input type="text" class="form-control" id="parkingName" name="employeeName">
+                        </div>
+                        <div class="form-group">
+                            <label for="parking-address" class="control-label">密码:</label>
+                            <input type="password" class="form-control" name="employeePassword">
+                        </div>
+                        <div class="form-group">
+                            <label for="hour-price" class="control-label">手机号:</label>
+                            <input type="tel" oninput="value=value.replace(/[^\d]/g,'')" maxlength="11"
+                                class="form-control" name="employeePhone">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        onclick="createEmployee()">添加</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="./js/jquerysession.js"></script>
+    <script src="./js/index.js"></script>
+
+
+    <script>
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+
+        option = {
+            legend: {},
+            tooltip: {
+                trigger: 'axis',
+                showContent: false
+            },
+            dataset: {
+                source: [
+
+                ]
+                // source: []
+            },
+            xAxis: { type: 'category' },
+            yAxis: { gridIndex: 0 },
+            grid: { top: '55%' },
+            series: [
+                { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+                { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+                { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+                { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+                { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+
+                { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+                { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+                { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+                {
+                    type: 'pie',
+                    id: 'pie',
+                    radius: '30%',
+                    center: ['50%', '25%'],
+                    emphasis: { focus: 'data' },
+                    label: {
+                        formatter: '{b}: {@2012} ({d}%)'
+                    },
+                    encode: {
+                        itemName: 'product',
+                        value: '2012',
+                        tooltip: '2012'
+                    }
+                }
+            ]
+        };
+
+        //获取用户数据
+
+        var countArray = "";
+
+        var dataArray = [];
+        var element = new Array;
+
+        let curDate = new Date();
+        dataArray[0] = ['product', '6-10', '6-11', '6-12', '6-13', '6-14', '6-15', '6-16']
+
+        // dataArray[0] = new Array;
+        // dataArray[0][0] = 'date'
+        // for (var k = 7; k >= 0; k--) {
+        //     var preDate = new Date(curDate.getTime() - k * 24 * 60 * 60 * 1000); //前一天
+        //     date = dateFormat("YYYY-mm-dd", preDate)
+        //     dataArray[0][7-k] = date
+        // }
+
+        console.log(dataArray)
+
+        $.ajax({
+            url: "http://193.112.203.154:8080/parkingarea/order/statistics",
+            type: "GET",
+            //处理跨域问题
+
+            data: {
+
+            },
+            success: function (data) {
+                console.log(data)
+                console.log(data.data)
+
+
+
+                // dataArray[0] = ['product', '2012', '2013', '2014', '2015', '2016', '2017','2019']
+
+
+                var i = 1
+                $.each(data.data, function (index, item) {
+                    var j = 0
+                    dataArray[i] = new Array;
+                    dataArray[i][j] = (item.parkingName)
+                    j++;
+                    $.each(item.orderCount, function (index, iitem) {
+                        console.log(iitem)
+                        dataArray[i][j] = iitem
+                        j++
+                    })
+                    console.log(dataArray)
+                    i++
+                });
+
+                myChart.setOption({
+                    dataset: {
+                        source: dataArray
+                    }
+                });
+            }
+        })
+
+
+
+
+        myChart.on('updateAxisPointer', function (event) {
+            var xAxisInfo = event.axesInfo[0];
+            if (xAxisInfo) {
+                var dimension = xAxisInfo.value + 1;
+                myChart.setOption({
+                    dataset: {
+                        source: dataArray
+                    },
+                    series: {
+                        id: 'pie',
+                        label: {
+                            formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+                        },
+                        encode: {
+                            value: dimension,
+                            tooltip: dimension
+                        }
+                    }
+                });
+            }
+        });
+
+        myChart.setOption(option);
+
+        function dateFormat(fmt, date) {
+            let ret;
+            const opt = {
+                "Y+": date.getFullYear().toString(),        // 年
+                "m+": (date.getMonth() + 1).toString(),     // 月
+                "d+": date.getDate().toString(),            // 日
+                "H+": date.getHours().toString(),           // 时
+                "M+": date.getMinutes().toString(),         // 分
+                "S+": date.getSeconds().toString()          // 秒
+                // 有其他格式化字符需求可以继续添加，必须转化成字符串
+            };
+            for (let k in opt) {
+                ret = new RegExp("(" + k + ")").exec(fmt);
+                if (ret) {
+                    fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
+                };
+            };
+            return fmt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+        
+
+    </script>
+</body>
+
+</html>

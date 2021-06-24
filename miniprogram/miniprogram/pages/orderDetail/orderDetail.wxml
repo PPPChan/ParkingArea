@@ -1,0 +1,42 @@
+<!--miniprogram/pages/orderDetail/orderDetail.wxml-->
+<wxs src="../../wxs/timeFormat.wxs" module="tools"></wxs>
+<view class="container">
+  <view class="parkingName">{{orderInfo.parkingName}}</view>
+  <view class="orderInfo">
+    订单信息
+  </view>
+  <view class="unit">
+    <text class="key">订单号</text>
+    <text class="value">{{orderInfo.orderId}}</text>
+  </view>
+  <view class="unit">
+    <text class="key">费用</text>
+    <text class="value">{{orderInfo.orderAmount}}</text>
+  </view>
+  <view class="unit">
+    <text class="key">车牌号</text>
+    <text class="value">{{orderInfo.licensePlateNumber}}</text>
+  </view>
+  <view class="unit">
+    <text class="key">价格</text>
+    <text class="value">{{orderInfo.hourPrice}}</text>
+  </view>
+  <view class="unit">
+    <text class="key">支付状态</text>
+    <text class="value">{{orderInfo.payStatus==0?"未支付":"已支付"}}</text>
+  </view>
+  <view class="unit">
+    <text class="key">开始时间</text>
+    <text class="value">{{tools.ymd(orderInfo.createTime)}}</text>
+  </view>
+  <view class="unit">
+    <text class="key">结束时间</text>
+    <text class="value">{{tools.ymd(orderInfo.endTime)}}</text>
+  </view>
+
+</view>
+
+
+<view class="bottom-modal" hidden="{{orderInfo.payStatus!=0}}">
+  <button bind:tap="goToPay" data-orderid="{{orderInfo.orderId}}">去支付</button>
+</view>

@@ -1,0 +1,76 @@
+<wxs src="../../wxs/timeFormat.wxs" module="tools"></wxs>
+<view>
+  <view class="body">
+    <view class="mod-title">
+      <span class="ico_log ico-1"></span>
+    </view>
+
+    <view class="mod-ct">
+      <view class="order"></view>
+      <view id="orderbody">
+        <view class="amount" id="money">￥{{orderInfo.orderAmount}}</view>
+      </view>
+
+      <view class="qrcode-img-wrapper" data-role="qrPayImgWrapper">
+        <view data-role="qrPayImg" class="qrcode-img-area">
+          <view class="ui-loading qrcode-loading" data-role="qrPayImgLoading" style="display: none;">加载中</view>
+          <view style="position: relative;display: inline-block;">
+            <!-- <img id="show_qrcode" alt="加载中..." src="../../images/enQrcode.png" width="210" height="210"
+            style="display: block;"/> -->
+            <image src="../../images/enQrcode.png" bind:tap="preview"></image>
+          </view>
+        </view>
+      </view>
+
+      <view class="time-item">
+        <view class="time-item" id="msg">
+          <h1>
+            <span style="color:red">为了您正常支付 请务必付款 {{orderInfo.orderAmount}} 元 <br />备注说明无需填写</span><br />
+          </h1>
+        </view>
+        <strong id="hour_show">0时</strong>
+        <strong id="minute_show">{{min}}分</strong>
+        <strong id="second_show">{{second}}秒</strong>
+      </view>
+
+      <view class="tip">
+        <view class="ico-scan"></view>
+        <view class="tip-text">
+          <text>请点击图片保存到手机\n</text>
+          <text>打开微信扫一扫\n</text>
+          <text>扫码后输入金额支付\n</text>
+        </view>
+      </view>
+
+
+      <view class="detail detail-open" id="orderDetail">
+        <view class="detail-ct" id="desc">
+          <text style="float:left">金额</text>
+          <text style="float:right">{{orderInfo.orderAmount}}</text>
+
+          
+        </view>
+
+        <view class="detail-ct" id="desc">
+          <text style="float:left">订单号</text>
+          <text style="float:right">{{orderInfo.orderId}}\n</text>
+          
+        </view>
+
+        <view class="detail-ct" id="desc">
+          
+          <text style="float:left">创建时间</text>
+          <text style="float:right">{{tools.ymd(orderInfo.createTime)}}\n</text>
+          
+        </view>
+
+        <view class="detail-ct" id="desc">
+          
+          <text style="float:left">状态</text>
+          <text style="float:right">{{orderInfo.payStatus==0?"未支付":"已支付"}}\n</text>
+          
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

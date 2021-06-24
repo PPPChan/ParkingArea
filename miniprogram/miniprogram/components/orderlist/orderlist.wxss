@@ -1,0 +1,50 @@
+/* components/orderlist/orderlist.wxss */
+.orderlist-container{
+  background-color: white;
+  height: 200rpx;
+  width: 95%;
+  margin: 20rpx auto;
+  border-radius: 5rpx;
+}
+
+.parking-info{
+  position: relative;
+  left: 20rpx;
+  top: 10rpx;
+}
+.parking-name{
+  font-weight: 900;
+}
+.status{
+  position: absolute;
+  right: 40rpx;
+  float: right;
+  font-weight: 100;
+}
+
+.time{
+  position: relative;
+  margin-top: 35rpx;
+  left: 20rpx;
+  font-size: 25rpx;
+}
+
+.number{
+  position: relative;
+  margin-top: 20rpx;
+  left: 20rpx;
+  font-weight: 500;
+}
+
+i{
+  color: black;
+  font-size: 100rpx;
+}
+.amount{
+  right: 23rpx;
+  float: right;
+  top: -50rpx;
+  position: relative;
+  display: flex;
+  color: darkorange;
+}

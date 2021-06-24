@@ -1,0 +1,8 @@
+<view class="modal" hidden="{{!modalShow}}" bind:tap="onClose">
+  <!-- <view class="bg" ></view> -->
+  <view class="panel" catchtap>
+    <i class="iconfont icon-quxiao" bind:tap="onClose" />
+    <!-- slot插槽 -->
+    <slot name="modal-content"></slot>
+  </view>
+</view>

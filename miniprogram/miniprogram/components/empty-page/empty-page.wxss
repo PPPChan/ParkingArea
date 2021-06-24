@@ -1,0 +1,36 @@
+/* components/empty-page/empty-page.wxss */
+@import "../../iconfont.wxss";
+.container{
+  
+  display: flex;
+  justify-content: center;
+}
+.iconfont{
+  font-size: 300rpx;
+  color: #bfbfbf;
+}
+.icon-zanwushuju{
+  padding: 10rpx;
+  margin-top: 50rpx;
+  width: 300rpx;
+  height: 300rpx;
+  display: block;
+  border-radius: 170rpx;
+  background:-moz-linear-gradient(top,#bfbfbf,#1296db);
+
+  background:-ms-linear-gradient(top,#bfbfbf,#1296db);
+  
+  background:-o-linear-gradient(top,#bfbfbf,#1296db);
+  
+  background:-webkit-linear-gradient(top,#bfbfbf,#1296db);
+}
+
+page{
+  background-color: #eee;
+}
+.txt{
+  margin-top: 50rpx;
+  display: flex;
+  justify-content: center;
+  color: #bfbfbf;
+}

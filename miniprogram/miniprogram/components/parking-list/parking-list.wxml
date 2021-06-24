@@ -1,0 +1,13 @@
+<wxs src="../../wxs/stringSub.wxs" module="tools" />
+<view class="playlist-container" hidden="{{parking.parkingStatus==0}}">
+  <!-- <image class="playlist-img" src="{{playlist.picUrl}}"></image>
+  <text class="playlist-playcount">{{_count}}</text>
+  <view class="playlist-name">{{playlist.name}}</view> -->
+  <text class="num">{{parking.parkingAvailable}}</text>
+  <text class="num-sub">个空车位\n</text>
+  <i class="iconfont icon-dizhi"></i>
+  <text class="address">\t{{tools.sub(parking.parkingAddress)}}\n</text>
+  <i class="iconfont icon-juli"></i>
+  <text class="dist">\t{{(parking.dist)==null?"无":"约"+(parking.dist/100)+"km\n"}}</text>
+  <!-- <text>111</text> -->
+</view>

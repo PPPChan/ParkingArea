@@ -1,0 +1,60 @@
+/* miniprogram/pages/profile/profile.wxss */
+
+.head{
+  background-color: #1296db;
+  height: 350rpx;
+  border-bottom-left-radius: 80rpx;
+  border-bottom-right-radius: 80rpx;
+  
+}
+
+.img-container{
+  display:flex;
+  justify-content: center;
+}
+
+.nickName{
+  text-align: center;
+  position: relative;
+  top: 35rpx;
+  color: white;
+  font-size: large;
+}
+
+.avatar{
+  width: 150rpx;
+  height: 150rpx;
+  margin-top: 100rpx;
+  display:block;
+  border-radius: 75rpx;
+  border: 5rpx solid #eee;
+  /* justify-content: center       */
+}
+
+.content{
+  margin-top: 50rpx;
+}
+
+
+.btn{
+  background-color: white;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  border-top: 1rpx solid #eee;
+  border-bottom: 1rpx solid #eee;
+  border-radius: 20rpx;
+}
+
+.btn i{
+  color: #FF4500;
+  font-size: 80rpx;
+  margin-left: 2%;
+}
+
+.btn text{
+  margin-left: 3%;
+}
+page{
+  background-color: #eee;
+}

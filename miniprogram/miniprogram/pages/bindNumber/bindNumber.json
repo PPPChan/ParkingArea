@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "v-panel": "../../components/custom-keyboard/custom-keyboard"
+  }
+}

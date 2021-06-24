@@ -1,0 +1,77 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": -1,
+          "name": "db guide",
+          "pathName": "pages/databaseGuide/databaseGuide",
+          "query": ""
+        },
+        {
+          "name": "我的",
+          "pathName": "pages/profile/profile",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "订单",
+          "pathName": "pages/order/order",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "订单详情页",
+          "pathName": "pages/orderDetail/orderDetail",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "停车",
+          "pathName": "pages/park/park",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "绑定车牌",
+          "pathName": "pages/bindNumber/bindNumber",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "我的车牌",
+          "pathName": "pages/my-number/my-number",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "支付页",
+          "pathName": "pages/pay/pay",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "测试",
+          "pathName": "pages/test/test",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/my-card/my-card",
+          "pathName": "pages/my-card/my-card",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

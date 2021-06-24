@@ -1,0 +1,28 @@
+<!--test1.wxml-->
+<!-- <view class='test' catchtap="close" style='height:999px;'>
+  <button catchtap='open'>{{territory}}</button>
+  <button catchtap='openInput'>{{plateNo?plateNo:'点击输入'}}</button>
+  <button bindtap='select'>查询</button>
+</view> -->
+
+<view class="container">
+  <view class="info">添加车牌</view>
+  <view class="number">
+    <view class="box">
+      <view class="unit" catchtap='open'>{{territory}}</view>
+      <view class="unit" catchtap='openInput'>{{plateNo[0]}}</view>
+      <view class="point">·</view>
+      <view class="unit" catchtap='openInput'>{{plateNo[1]}}</view>
+      <view class="unit" catchtap='openInput'>{{plateNo[2]}}</view>
+      <view class="unit" catchtap='openInput'>{{plateNo[3]}}</view>
+      <view class="unit" catchtap='openInput'>{{plateNo[4]}}</view>
+      <view class="unit" catchtap='openInput'>{{plateNo[5]}}</view>
+    </view>
+  </view>
+  <button bindtap='select'>确定</button>
+</view>
+
+
+
+<v-panel is-show="{{isShow}}" bindok="inputOk" binddelete="delete" bindinputchange="click" bindok="ok"
+  key-board-type="{{keyBoardType}}" backgroundColor="white" />

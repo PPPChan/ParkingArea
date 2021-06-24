@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "x-orderlist": "../../components/orderlist/orderlist"
+    
+  },
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "backgroundColorTop": "#aaaaaa"
+}

@@ -1,0 +1,85 @@
+/* miniprogram/pages/park/park.wxss */
+.info-container{
+  background-color: #1296db;
+  padding: 15rpx 0;
+  width: 80%;
+  margin: 50rpx auto;
+  border-radius: 30rpx;
+  color: white;
+  box-shadow:2px 2px 5px #000;
+
+}
+.info{  
+  flex-direction:row;
+  display:flex;
+}
+
+.name{
+  text-align: center;
+  font-size: 40rpx;
+  margin-bottom: 10rpx;
+}
+
+.other{
+  margin-left: 30rpx;
+}
+
+.parking-container i{
+  /* position: absolute; */
+  display: inline;
+  font-size: 70rpx;
+  color: #CDCDB4;
+}
+.info-left{
+  width: 80%;
+}
+i{
+  width: 20%;
+}
+
+page{
+  background-color: #eee;
+}
+
+.section__title{
+  text-align: center;
+}
+
+.picker{
+  text-align: center;
+}
+
+button{
+  background-color: #1296db;
+  color: white;
+  margin-top: 150rpx;
+}
+
+.unit{
+  
+  display: inline-block;
+  color: #FDFBFA;
+  background-color: #031a7c;
+  margin: 0 auto;
+  padding: 15rpx;
+  text-align: center;
+  font-size: 100rpx;
+  border-radius: 10rpx;
+  border: 5rpx solid #FDFBFA;
+  position: relative;
+}
+.unit-container{
+  text-align: center;
+  width: auto;
+  display:inline-block;
+  border: 5rpx solid #031a7c;
+  border-radius: 10rpx;
+  margin: 50rpx auto;
+}
+.unit-c-c{
+  margin: 0 auto;
+}
+
+.final-container{
+  text-align: center;
+}

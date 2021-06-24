@@ -1,0 +1,63 @@
+/* components/my-number/my-number.wxss */
+@import "../../iconfont.wxss";
+
+.container{
+  text-align: center;
+  margin-bottom: 20%;
+}
+.unit{
+  width: auto;
+  display:inline-block;
+  color: #FDFBFA;
+  background-color: #031a7c;
+  margin: 0 auto;
+  padding: 15rpx;
+  text-align: center;
+  font-size: 100rpx;
+  border-radius: 10rpx;
+  border: 5rpx solid #FDFBFA;
+  position: relative;
+}
+.unit-container{
+  width: auto;
+  display:inline-block;
+  border: 5rpx solid #031a7c;
+  border-radius: 10rpx;
+  margin: 50rpx auto;
+}
+.unit-c-c{
+  border:1rpx solid gray;
+}
+button{
+  background-color: #1296db;
+  
+  color: white;
+}
+
+page{
+  background-color: #eee;
+}
+
+
+.bottom-modal{
+  position: fixed;
+  bottom: 0rpx;
+  width: 100%;
+  padding: 35rpx 0;
+  background-color: white;
+  /* margin: 0,auto; */
+  border-radius: 5rpx;
+  display: flex;
+}
+i{
+  margin-right: 20rpx;
+  color: white;
+}
+
+.container i{
+  position: relative;
+  line-height: 60rpx;
+  color: #1296db;
+  font-size: 100rpx;
+  right: -5%;
+}

@@ -1,0 +1,67 @@
+<!--test1.wxml-->
+<!-- <view class='test' catchtap="close" style='height:999px;'>
+  <button catchtap='open'>{{territory}}</button>
+  <button catchtap='openInput'>{{plateNo?plateNo:'点击输入'}}</button>
+  <button bindtap='select'>查询</button>
+</view> -->
+
+<!-- <view class="container">
+  发起停车
+  <form catchsubmit="formSubmit" catchreset="formReset">
+      <view class="section">
+        <view class="section__title">请选择停车场</view>
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+          <view class="picker">
+            当前选择：{{array[index]}}
+          </view>
+        </picker>
+      </view>
+      
+      
+
+      <view class="btn-area">
+        <button style="margin: 30rpx 0" type="primary" formType="submit">Submit</button>
+        <button style="margin: 30rpx 0" formType="reset">Reset</button>
+      </view>
+    </form>
+</view> -->
+
+<view class="parking-container">
+  <block wx:for="{{parkingList}}" wx:key="{{item.parkingId}}">
+    <view class="info-container" bind:tap="selectParking" data-parkingid="{{item.parkingId}}"
+      hidden="{{item.parkingStatus==0 || (item.parkingId!=parkingSelect && parkingSelect!=-1)}}">
+      <view class="name">{{item.parkingName}}</view>
+      <view class="info">
+        <view class="info-left">
+          <view class="other">地址：{{item.parkingAddress}}</view>
+          <view class="other">价格：{{item.hourPrice}}元/小时</view>
+          <view class="other">车位：{{item.parkingAvailable}}个</view>
+        </view>
+        <view class="info-right" hidden="{{parkingSelect!=-1}}">
+          <i class="iconfont icon-tubiaozhizuomoban"></i>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
+
+<view class="final-container" hidden="{{!parkingIsSelect}}">
+  <view class="section">
+    <view class="section__title">点击下方选择要停车辆的车牌号:</view>
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{numberList}}" data-numberselect="{{numberList[index].licensePlateNumber}}"
+      range-key="licensePlateNumber">
+      <view class="unit-c-c">
+        <view class="unit-container">
+          <view class="unit">
+            <!-- {{item.licensePlateNumber[0]+item.licensePlateNumber[1]+'·'+item.licensePlateNumber[2]+item.licensePlateNumber[3]+
+        item.licensePlateNumber[4]+item.licensePlateNumber[5]+item.licensePlateNumber[6]}} -->
+              {{numberList[index].licensePlateNumber==null?"点我选择":numberList[index].licensePlateNumber[0]+numberList[index].licensePlateNumber[1]+"·"+numberList[index].licensePlateNumber[2]+numberList[index].licensePlateNumber[3]+numberList[index].licensePlateNumber[4]+numberList[index].licensePlateNumber[5]+numberList[index].licensePlateNumber[6]}}
+          </view>
+        </view>
+        
+      </view>
+    </picker>
+  </view>
+
+  <button disabled="{{numberSelect==''}}" bind:tap="onPark">确认停车</button>
+</view>

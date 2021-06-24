@@ -1,0 +1,24 @@
+/* components/parking-list/parking-list.wxss */
+@import "../../iconfont.wxss";
+.playlist-container{
+  width: 300rpx;
+  position: relative;
+  margin: 10rpx 12rpx;
+  background-color: white;
+  padding: 10rpx 25rpx;
+  border-radius: 20rpx;
+}
+
+.num{
+  font-size: 60rpx;
+}
+
+.icon-dizhi{
+  font-size: 30rpx;
+  color: red;
+}
+
+.icon-juli{
+  font-size: 30rpx;
+  color: #3366CC;
+}

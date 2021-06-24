@@ -1,0 +1,2 @@
+<!--miniprogram/pages/myNumber/my-number.wxml-->
+<x-my-number numberList="{{numberList}}" bind:reload="onLoad"></x-my-number>

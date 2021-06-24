@@ -1,0 +1,62 @@
+/* miniprogram/pages/orderDetail/orderDetail.wxss */
+.container{
+  margin: 30rpx;
+  background-color: white;
+  border-radius: 30rpx;
+  padding-bottom: 50rpx;
+}
+.parkingName{
+  position: relative;
+  top: 30rpx;
+  left: 20rpx;
+  font-size: 40rpx;
+  font-weight: 400;
+}
+
+.orderInfo{
+  position: relative;
+  font-size: 30rpx;
+  margin-top: 45rpx;
+  left: 20rpx;
+}
+
+.unit{
+  font-size: 30rpx;
+  position: relative;
+  margin-top: 10rpx;
+  left: 20rpx;
+  display: block;
+  height: 50rpx;
+  line-height: 50rpx;
+}
+
+button{
+  position: relative;
+  margin-top: 150rpx;
+  background-color: #1296db;
+  
+}
+.key{
+  float: left;
+  color: #999999;
+}
+.value{
+  float: right;
+  margin-right: 40rpx;
+}
+.bottom-modal{
+  position: absolute;
+  bottom: 0rpx;
+  height: 200rpx;
+  width: 100%;
+  /* margin: 0,auto; */
+  background-color: white;
+}
+.bottom-modal button{
+  bottom: 100rpx;
+  color: white;
+}
+
+page{
+  background-color: #eee;
+}

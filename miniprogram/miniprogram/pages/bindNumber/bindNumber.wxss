@@ -1,0 +1,60 @@
+/* miniprogram/pages/bindNumber/bindNumber.wxss */
+.info{
+  margin: 0 auto;
+  width: 90%;
+  font-size: 40rpx;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.box{
+  margin: 0 auto;
+  display:flex;
+  justify-content:center;
+}
+.unit{
+  border: 5rpx solid gray;
+  padding: 10rpx;
+  display: inline-block;
+  border-radius: 10rpx;
+  margin:0 10rpx;
+  font-size: 40rpx;
+  width: 40rpx;
+}
+
+.unit-actived{
+  border: 5rpx solid #1296db;
+  padding: 10rpx;
+  display: inline-block;
+  border-radius: 10rpx;
+  margin:0 10rpx;
+  font-size: 40rpx;
+}
+
+.point{
+  padding: 10rpx;
+  display: inline-block;
+  border-radius: 10rpx;
+  margin:0 10rpx;
+  font-size: 40rpx;
+  font-weight: 1000;
+}
+
+.number{
+  width: 90%;
+  background-color: white;
+  margin: 0 auto;
+  padding-top: 50rpx;
+  padding-bottom: 50rpx;
+  border-radius: 25rpx;
+}
+
+button{
+  margin-top: 50rpx;
+  background-color: #1296db;
+  color: white;
+}
+
+page{
+  background-color: #eee;
+}

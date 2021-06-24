@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "x-empty-page": "../../components/empty-page/empty-page"
+  }
+}

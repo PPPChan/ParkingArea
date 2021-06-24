@@ -1,0 +1,2 @@
+<!--miniprogram/pages/my-bill/my-bill.wxml-->
+<x-empty-page text="暂不支持发票功能"></x-empty-page>

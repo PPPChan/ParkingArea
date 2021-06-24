@@ -1,0 +1,6 @@
+<!--components/empty-page/empty-page.wxml-->
+<view hidden="{{showModal}}">
+  <view class="container"><i id="empty" class="iconfont icon-zanwushuju"></i></view>
+  <text class="txt">{{text}}</text>
+</view>
+

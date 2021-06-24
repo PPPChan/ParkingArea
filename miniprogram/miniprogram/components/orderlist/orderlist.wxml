@@ -1,0 +1,17 @@
+<wxs src="../../wxs/timeFormat.wxs" module="tools"></wxs>
+<x-empty-page text="暂无订单" showModal="{{orderList.length!=0}}"></x-empty-page>
+<block wx:for="{{orderList}}" wx:key="item.orderId">
+  <view class="orderlist-container" bind:tap="goToOrderDetail"
+  data-orderid="{{item.orderId}}">
+    <view class="parking-info">
+      <text class="parking-name">{{item.parkingName}}</text>
+      <text class="status">{{item.payStatus==0?"停车中":"已完成"}}</text>
+    </view>
+    <view class="time">{{tools.ymd(item.createTime)}} - {{tools.ymd(item.createTime)}}</view>
+
+    
+    <view class="number">{{item.licensePlateNumber}}</view>
+    <view class="amount" hidden="{{item.payStatus==0}}">实付:￥{{item.orderAmount}}</view>
+  </view>
+
+</block>

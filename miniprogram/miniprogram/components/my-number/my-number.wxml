@@ -1,0 +1,22 @@
+<!--components/my-number/my-number.wxml-->
+<x-empty-page text="你目前还没有绑定车牌" showModal="{{numberList.length!=0}}"></x-empty-page>
+<view class="container">
+  <block wx:for="{{numberList}}">
+  
+  <view class="unit-c-c">
+    <view class="unit-container">
+      <view class="unit">
+        {{item.licensePlateNumber[0]+item.licensePlateNumber[1]+'·'+item.licensePlateNumber[2]+item.licensePlateNumber[3]+
+        item.licensePlateNumber[4]+item.licensePlateNumber[5]+item.licensePlateNumber[6]}}
+      </view>
+    </view>
+    <i class="iconfont icon-shanchu" bind:tap="delete" data-number="{{item.licensePlateNumber}}"></i>
+  </view>
+</block>
+
+</view>
+
+
+<view class="bottom-modal">
+  <button bind:tap="bind"><i class="iconfont icon-binding"></i>添加绑定</button>
+</view>

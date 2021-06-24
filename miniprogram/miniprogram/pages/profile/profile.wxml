@@ -1,0 +1,39 @@
+<!--miniprogram/pages/profile/profile.wxml-->
+
+<!-- 1296db -->
+<view>
+  <view class="head">
+    <view class="img-container">
+      <image src="{{avatarUrl}}" class="avatar" align="middle" />
+    </view>
+    <view class="nickName">
+      <text>{{nickName}}</text>
+    </view>
+  </view>
+  <view class="content">
+    <view class="btn" bind:tap="mynumber">
+      <i class="iconfont icon-Home_icon_chepaiquer-copy"></i>
+      <text>我的车牌</text>
+    </view>
+    <view class="btn" bind:tap="mycard">
+      <i class="iconfont icon-peizhitubiaosvg-"></i>
+      <text>我的月卡</text>
+    </view>
+    <view class="btn" bind:tap="tomybill">
+      <i class="iconfont icon-ticket-fill"></i>
+      <text>我的发票</text>
+    </view>
+  </view>
+
+  <view class="content">
+    <!-- <view class="btn">
+      <i class="iconfont icon-guanyuwomen"></i>
+      <text>关于我们</text>
+    </view> -->
+    <view class="btn" bind:tap="logout">
+      <i class="iconfont icon-tuichudenglu"></i>
+      <text>退出登录</text>
+    </view>
+    
+  </view>
+</view>

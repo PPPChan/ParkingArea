@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "x-login": "/components/login/login",
+    "x-bottom-modal":"/components/bottom-modal/bottom-modal",
+    "x-parking-list":"/components/parking-list/parking-list"
+  }
+  
+}
