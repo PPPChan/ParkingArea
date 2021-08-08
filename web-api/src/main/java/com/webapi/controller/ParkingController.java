@@ -3,6 +3,7 @@ package com.webapi.controller;
 import com.webapi.VO.ResultVO;
 import com.webapi.dataobject.Parking;
 import com.webapi.dataobject.UserInfo;
+import com.webapi.dto.ParkingDistanceDTO;
 import com.webapi.dto.ParkingIdDTO;
 import com.webapi.service.ParkingService;
 import com.webapi.util.ResultVOUtil;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @Author 陈俊鹏
@@ -32,8 +34,10 @@ public class ParkingController {
     public ResultVO<ParkingIdDTO> create(@RequestParam("parkingName") String parkingName,
                                          @RequestParam("parkingAddress") String parkingAddress,
                                          @RequestParam("parkingTotal") Integer parkingTotal,
-                                         @RequestParam("hourPrice") BigDecimal hourPrice){
-        ParkingIdDTO parkingIdDTO = service.create(parkingName,parkingAddress, parkingTotal,hourPrice);
+                                         @RequestParam("hourPrice") BigDecimal hourPrice,
+                                         @RequestParam("longitude") double longitude,
+                                         @RequestParam("latitude") double latitude){
+        ParkingIdDTO parkingIdDTO = service.create(parkingName,parkingAddress, parkingTotal,hourPrice,longitude,latitude);
         return ResultVOUtil.success(parkingIdDTO);
     }
 
@@ -83,5 +87,20 @@ public class ParkingController {
         PageRequest request = PageRequest.of(page,size);
         Page<Parking> parkingPage = service.findAll(request);
         return ResultVOUtil.success(parkingPage.getContent());
+    }
+
+    @GetMapping("/radius")
+    public ResultVO<List<ParkingDistanceDTO>> radius(@RequestParam(value = "longitude") double longitude,
+                                                     @RequestParam(value = "latitude") double latitude){
+
+        List<ParkingDistanceDTO> parkingDistanceDTOS = service.radius(longitude,latitude);
+        return ResultVOUtil.success(parkingDistanceDTOS);
+    }
+
+    @PostMapping("/updateGeo")
+    public ResultVO<String> updateGeo(@RequestParam(value = "parkingId") String parkingId,
+                                      @RequestParam(value = "longitude") double longitude,
+                                      @RequestParam(value = "latitude") double latitude){
+        return ResultVOUtil.success(service.updateGeo(parkingId,longitude,latitude));
     }
 }

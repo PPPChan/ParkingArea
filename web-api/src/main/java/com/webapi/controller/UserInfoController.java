@@ -50,9 +50,8 @@ public class UserInfoController {
     @GetMapping("/personal")
     //查看个人信息
     public ResultVO<UserInfoDTO> personal(@RequestParam("openid") String openid){
-        UserInfo userInfo = service.findOne(openid);
-        UserInfoDTO userInfoDTO = new UserInfoDTO();
-        BeanUtils.copyProperties(userInfo,userInfoDTO);
+
+        UserInfoDTO userInfoDTO = service.findOne(openid);
         return ResultVOUtil.success(userInfoDTO);
     }
 
@@ -70,4 +69,19 @@ public class UserInfoController {
         BeanUtils.copyProperties(result,userInfoDTO);
         return ResultVOUtil.success(userInfoDTO);
     }
+
+
+    @PostMapping("/openMonthlyCard")
+    //开通月卡
+    public ResultVO<Integer> openMonthlyCard(@RequestParam("openid") String openid){
+        Integer res = service.openMonthlyCard(openid);
+        return ResultVOUtil.success(res);
+    }
+
+    @GetMapping("/getExpire")
+    //获取到期时间
+    public ResultVO<String> getExpire(@RequestParam("openid") String openid){
+        return ResultVOUtil.success(service.getExpire(openid));
+    }
+
 }

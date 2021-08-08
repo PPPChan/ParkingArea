@@ -6,6 +6,7 @@ import com.webapi.dataobject.OrderMaster;
 import com.webapi.dataobject.Parking;
 import com.webapi.dto.OrderDataDTO;
 import com.webapi.dto.OrderIdDTO;
+import com.webapi.dto.OrderMasterDTO;
 import com.webapi.dto.OrderStatisticsDTO;
 import com.webapi.enums.ResultEnum;
 import com.webapi.exception.ParkingareaException;
@@ -16,11 +17,14 @@ import com.webapi.service.OrderService;
 import com.webapi.service.ParkingService;
 import com.webapi.util.HttpRequest;
 import com.webapi.util.KeyUtil;
+import com.webapi.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.math.BigDecimal;
@@ -42,13 +46,15 @@ public class OrderServiceImpl implements OrderService {
     private ParkingService parkingService;
     @Autowired
     private ParkingRepository parkingRepository;
+    @Autowired
+    private RedisUtil redisUtil;
 
 
     @Override
     /**
      * 创建订单
      */
-
+    @Transactional
     public OrderIdDTO create(String licensePlateNumber, Integer parkingId) {
         //1.查询该车牌是否已绑定
         Optional<LicensePlate> optionalLicensePlate = licensePlateRepository.findById(licensePlateNumber);
@@ -86,27 +92,47 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderMaster findOne(String orderId) {
+    public OrderMasterDTO findOne(String orderId) {
         Optional<OrderMaster> optionalOrderMaster = orderMasterRepository.findById(orderId);
         if (!optionalOrderMaster.isPresent()){
             log.error("【查询单个订单】orderId不存在，orderId：{}",orderId);
             throw new ParkingareaException(ResultEnum.ORDERID_NOT_EXISTS);
         }
         OrderMaster orderMaster = optionalOrderMaster.get();
-        //更新预计金额
-        //获取当前时间戳
-        long currentTime = new Date().getTime();
-        long dif = currentTime-orderMaster.getCreateTime().getTime();
-        double hourDif = (double)dif/(double)3600000;
-//        DecimalFormat hourPrice = new DecimalFormat("0.00");
+        OrderMasterDTO orderMasterDTO = new OrderMasterDTO();
+        //判断订单状态
+        if (orderMaster.getPayStatus()==0){
+            String openid = orderMaster.getUserOpenid();
+            //更新预计金额
+            //获取当前时间戳
+            long currentTime = new Date().getTime();
+            long dif = currentTime-orderMaster.getCreateTime().getTime();
+            double hourDif = (double)dif/(double)3600000;
 
-//        BigDecimal d = new BigDecimal()
-        BigDecimal hourPrice = orderMaster.getHourPrice().multiply(BigDecimal.valueOf(hourDif)).setScale(2,BigDecimal.ROUND_HALF_UP);
+            //原价
+            BigDecimal cost = orderMaster.getHourPrice().multiply(BigDecimal.valueOf(hourDif)).setScale(2,BigDecimal.ROUND_HALF_UP);
+            //折扣金额(月卡打八折),非月卡用户为0
+            BigDecimal discount = new BigDecimal("0.00");
+            //预计支付金额
+            BigDecimal orderAmount = new BigDecimal("0.00");
+            //判断是否为月卡用户
+            if (redisUtil.hasKey("userType."+openid)){
+                discount = cost.multiply(BigDecimal.valueOf(0.2)).setScale(2,BigDecimal.ROUND_HALF_UP);
+                orderAmount = cost.subtract(discount).setScale(2,BigDecimal.ROUND_HALF_UP);
+            }else{
+                orderAmount = cost;
+            }
 
-        orderMaster.setOrderAmount(hourPrice);
+            BeanUtils.copyProperties(orderMaster,orderMasterDTO);
+            orderMasterDTO.setCost(cost);
+            orderMasterDTO.setDiscount(discount);
+            orderMasterDTO.setOrderAmount(orderAmount);
+        }else{
+            BeanUtils.copyProperties(orderMaster,orderMasterDTO);
+        }
         //不存入数据库
 //        orderMasterRepository.save(orderMaster);
-        return orderMaster;
+        return orderMasterDTO;
     }
 
     @Override
@@ -123,18 +149,38 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public OrderMaster pay(String orderId) {
-        OrderMaster orderMaster = findOne(orderId);
-//        md5(payId+param+type+price+通讯密钥)
-        String text = orderMaster.getOrderId()+1+orderMaster.getOrderAmount()+"aa15188ce0f1d97018524d9862ef2a46";
-        String sign = DigestUtils.md5DigestAsHex(text.getBytes());
-        String params = "payId="+orderMaster.getOrderId()+"&type=1"+"&price="+orderMaster.getOrderAmount()+"&sign="+sign;
-        String res = HttpRequest.sendGet("http://localhost/createOrder",params);
-        JSONObject jsonObject = JSONObject.parseObject(res);
-        if(jsonObject.getInteger("code")!=1){
-            throw new ParkingareaException(jsonObject.getInteger("code"), jsonObject.getString("msg"));
+    //监听支付不太行
+//    public OrderMaster pay(String orderId) {
+//        OrderMaster orderMaster = findOne(orderId);
+////        md5(payId+param+type+price+通讯密钥)
+//        String text = orderMaster.getOrderId()+1+orderMaster.getOrderAmount()+"aa15188ce0f1d97018524d9862ef2a46";
+//        String sign = DigestUtils.md5DigestAsHex(text.getBytes());
+//        String params = "payId="+orderMaster.getOrderId()+"&type=1"+"&price="+orderMaster.getOrderAmount()+"&sign="+sign;
+//        String res = HttpRequest.sendGet("http://localhost/createOrder",params);
+//        JSONObject jsonObject = JSONObject.parseObject(res);
+//        if(jsonObject.getInteger("code")!=1){
+//            throw new ParkingareaException(jsonObject.getInteger("code"), jsonObject.getString("msg"));
+//        }
+//        return orderMaster;
+//    }
+    @Transactional
+    public String pay(String orderId) {
+        //修改订单支付状态
+        OrderMasterDTO orderMasterDTO =findOne(orderId);
+        Optional<OrderMaster> optionalOrderMaster = orderMasterRepository.findById(orderId);
+        if (!optionalOrderMaster.isPresent()){
+            log.error("【查询单个订单】orderId不存在，orderId：{}",orderId);
+            throw new ParkingareaException(ResultEnum.ORDERID_NOT_EXISTS);
         }
-        return orderMaster;
+        OrderMaster orderMaster = optionalOrderMaster.get();
+        BeanUtils.copyProperties(orderMasterDTO,orderMaster);
+        orderMaster.setPayStatus(1);
+        //增加车位数
+        parkingService.decreaseUsed(orderMaster.getParkingId());
+        orderMasterRepository.save(orderMaster);
+
+        return "支付成功！";
+
     }
 
 

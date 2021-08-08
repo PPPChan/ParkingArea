@@ -12,6 +12,7 @@ import lombok.Getter;
 public enum ResultEnum {
     USER_EXISTS(10,"用户openid已存在"),
     USER_NOT_EXiSTS(11,"openid不存在"),
+    USER_NOT_OPENCARD(24,"该用户未开通会员"),
     EMPLOYEE_NOT_EXISTS(12,"employeeId不存在"),
     LICENSEPLATE_NUMBER_EXISTS(13,"车牌号已被绑定"),
     LICENSEPLATE_UPPER_LIMIT(14,"已绑车牌已达上限"),

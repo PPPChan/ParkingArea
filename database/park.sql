@@ -34,6 +34,8 @@ CREATE TABLE `order_master` (
   `hour_price` decimal(8,2) not null comment '每小时价格',
   `user_openid` varchar(64) NOT NULL COMMENT '买家微信openid',
   `license_plate_number` varchar(64) not null comment '车牌号',
+  `cost` decimal(8,2) NOT NULL default 0 COMMENT '订单原金额',
+  `discount` decimal(8,2) NOT NULL default 0 COMMENT '订单优惠',
   `order_amount` decimal(8,2) NOT NULL default 0 COMMENT '订单总金额',
   `pay_status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '支付状态，默认0未支付',
   `create_time` timestamp not null default current_timestamp comment '创建时间',

@@ -1,7 +1,6 @@
 package com.webapi.dataobject;
 
 import lombok.Data;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -13,7 +12,6 @@ import javax.persistence.Id;
 @Data
 @Entity
 public class LicensePlate {
-
     @Id
     //车牌号
     private String licensePlateNumber;

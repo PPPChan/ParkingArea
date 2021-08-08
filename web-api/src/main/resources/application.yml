@@ -1,4 +1,8 @@
 spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost/parking_area?useUnicode=true&characterEncoding=utf-8&useSSL=false
@@ -15,4 +19,8 @@ spring:
 server:
   servlet:
     context-path: /parkingarea
+
+
+
+
 

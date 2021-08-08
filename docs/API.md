@@ -1,3 +1,5 @@
+
+
 # API
 
 
@@ -112,7 +114,7 @@ userName: "张三",
 phone: "18868822111",
 ```
 返回
-```
+```json
 {
   "code": 0,
   "msg": "成功",
@@ -123,6 +125,55 @@ phone: "18868822111",
   }
 }
 ```
+
+
+
+<h4 style="color:red">1-5 开通月卡</h4>
+
+```
+POST /parkingarea/userinfo/openMonthlyCard
+```
+
+参数
+
+```
+openid: "widkhdkjakjd",//用户的微信openid
+```
+
+返回
+
+```json
+{
+  "code": 0,
+  "msg": "成功",
+  "data": 1
+}
+```
+
+
+
+<h4 style="color:red">1-6 查看月卡到期时间</h4>
+
+```
+GET /parkingarea/userinfo/getExpire
+```
+
+参数
+
+```
+openid: "widkhdkjakjd",//用户的微信openid
+```
+
+返回
+
+```json
+{
+  "code": 0,
+  "msg": "成功",
+  "data": "2021-12-5 12:32:47"
+}
+```
+
 
 
 
@@ -314,21 +365,21 @@ GET /parkingarea/order/detail
 orderId:147283992738221
 ```
 返回
-```
+```json
 {
     "code": 0,
     "msg": "成功",
     "data": {
         "orderId": "1618935107790281496",
-        "parkingId": 3,
         "parkingName": "海利停车场",
         "hourPrice": 1.00,
-        "userOpenid": "123123",
         "licensePlateNumber": "粤C88888",
-        "orderAmount": 0.0383986111111111100,
+        "cost": 1308.98,
+        "discount": 0.00,
+        "orderAmount": 1308.98,
         "payStatus": 0,
-        "createTime": 1618935107,
-        "endTime": 1618935107
+        "createTime": 1623687107,
+        "endTime": 1623761801
     }
 }
 ```
@@ -527,6 +578,8 @@ parkingName: "西丽停车场"
 parkingAddress: "深圳市南山区西丽街道"
 hourPrice: 10
 parkingTotal: 50
+longitude: 116.23
+latitude: 40.48
 ```
 
 返回
@@ -556,6 +609,8 @@ parkingName: 西丽停车场
 parkingAddress: 深圳市南山区西丽街道
 hourPrice:11
 parkingTotal: 50
+longitude: 116.23
+latitude: 40.48
 ```
 
 返回
@@ -574,7 +629,8 @@ parkingTotal: 50
         "parkingAvailable": 0,
         "parkingStatus": 1,
         "createTime": 1618838597,
-        "updateTime": 1618921960
+        "updateTime": 1618921960,
+        
     }
 }
 ```
@@ -696,6 +752,8 @@ parkingId: 4
         "parkingUsed": 1,
         "parkingAvailable": 98,
         "parkingStatus": 1,
+        "longitude": 116.23,
+		"latitude": 40.48,
         "createTime": 1618905511,
         "updateTime": 1618921223
     }
@@ -813,5 +871,72 @@ parkingId: 3
         "createTime": 1618903158,
         "updateTime": 1618924705
     }
+}
+```
+
+
+
+<h4 style="color:red">5-9 查询附近停车场（500km）</h4>
+
+```
+GET /parkingarea/parking/radius
+```
+
+参数
+
+```
+longitude: 110
+latitude: 33
+```
+
+返回
+
+```json
+{
+    "code": 0,
+    "msg": "成功",
+    "data": [
+        {
+            "parkingName": " 西丽停车场",
+            "parkingAddress": " 深圳市南山区西丽街道",
+            "distance": 0.01,
+            "parkingAvailable": 0
+        },
+        {
+            "parkingName": "海丰停车场",
+            "parkingAddress": "广东省汕尾市海丰县二环南路",
+            "distance": 297.46,
+            "parkingAvailable": 88
+        },
+        {
+            "parkingName": "海利停车场",
+            "parkingAddress": "海利花园",
+            "distance": 476.74,
+            "parkingAvailable": 85
+        }
+    ]
+}
+```
+
+<h4 style="color:red">5-10 修改停车场地理位置</h4>
+
+```
+POST /parkingarea/parking/updateGeo
+```
+
+参数
+
+```
+longitude: 110
+latitude: 33
+```
+
+返回
+
+```json
+{
+    "code": 0,
+    "msg": "成功",
+    "data": "更新地理位置成功！"
 }
 ```

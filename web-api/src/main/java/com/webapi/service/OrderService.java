@@ -3,6 +3,7 @@ package com.webapi.service;
 import com.webapi.dataobject.OrderMaster;
 import com.webapi.dto.OrderDataDTO;
 import com.webapi.dto.OrderIdDTO;
+import com.webapi.dto.OrderMasterDTO;
 import com.webapi.dto.OrderStatisticsDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,13 +22,13 @@ public interface OrderService {
     //创建订单
     OrderIdDTO create(String licensePlateNumber,Integer parkingId);
     //查看订单详情
-    OrderMaster findOne(String orderId);
+    OrderMasterDTO findOne(String orderId);
     //查看个人订单列表
     List<OrderMaster> personal(String openid);
     //查询所有订单列表
     Page<OrderMaster> findAll(Pageable pageable);
     //支付订单
-    OrderMaster pay(String orderId);
+    String pay(String orderId);
     //补单
     OrderMaster finish(String orderId, BigDecimal bigDecimal);
 

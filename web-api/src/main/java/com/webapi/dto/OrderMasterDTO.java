@@ -1,42 +1,32 @@
-package com.webapi.dataobject;
+package com.webapi.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.webapi.util.serializer.Date2LongSerializer;
 import lombok.Data;
-import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * @Author 陈俊鹏
- * @Date 2021/4/13 15:32
+ * @Date 2021/8/6 13:36
  * @Version 1.0
  */
 @Data
-@DynamicUpdate
-@Entity
-public class OrderMaster {
-    @Id
+public class OrderMasterDTO {
     //订单号
     private String orderId;
-    //停车场编号
-    private Integer parkingId;
     //停车场名字
     private String parkingName;
     //每小时价格
     private BigDecimal hourPrice;
-    //用户openid
-    private String userOpenid;
     //车牌号
     private String licensePlateNumber;
     //订单原价
     private BigDecimal cost = new BigDecimal(0);
-    //订单优惠
+    //订单折扣金额
     private BigDecimal discount = new BigDecimal(0);
-    //订单金额
+    //订单预计金额
     private BigDecimal orderAmount = new BigDecimal(0);
     //订单支付状态
     private Integer payStatus = 0;
@@ -46,5 +36,6 @@ public class OrderMaster {
     //结束时间
     @JsonSerialize(using = Date2LongSerializer.class)
     private Date endTime;
+
 
 }

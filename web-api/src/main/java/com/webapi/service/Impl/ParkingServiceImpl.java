@@ -1,18 +1,27 @@
 package com.webapi.service.Impl;
 
 import com.webapi.dataobject.Parking;
+import com.webapi.dto.ParkingDistanceDTO;
 import com.webapi.dto.ParkingIdDTO;
 import com.webapi.enums.ResultEnum;
 import com.webapi.exception.ParkingareaException;
 import com.webapi.repository.ParkingRepository;
 import com.webapi.service.ParkingService;
+import com.webapi.util.RedisGeoUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.geo.*;
+import org.springframework.data.redis.connection.RedisGeoCommands;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -25,10 +34,16 @@ import java.util.Optional;
 public class ParkingServiceImpl implements ParkingService {
     @Autowired
     private ParkingRepository repository;
+    @Autowired
+    private RedisGeoUtil redisGeoUtil;
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    private String key = "parking";
 
 
     @Override
-    public ParkingIdDTO create(String parkingName,String parkingAddress, Integer parkingTotal,BigDecimal hourPrice) {
+    public ParkingIdDTO create(String parkingName,String parkingAddress, Integer parkingTotal,BigDecimal hourPrice,double longitude,double latitude) {
         if(repository.findParkingByParkingName(parkingName) != null){
             log.error("【添加停车场】停车场名字已存在，停车场名字：{}",parkingName);
             throw new ParkingareaException(ResultEnum.PARKING_NAME_EXISTS);
@@ -40,6 +55,11 @@ public class ParkingServiceImpl implements ParkingService {
         parking.setParkingAddress(parkingAddress);
         parking.setHourPrice(hourPrice);
         Parking result =repository.save(parking);
+
+        //地理位置存入redis
+        Point point = new Point(longitude,latitude);
+        redisGeoUtil.geoAdd(key,point,String.valueOf(result.getParkingId()));
+
         ParkingIdDTO parkingIdDTO = new ParkingIdDTO();
         parkingIdDTO.setParkingId(result.getParkingId());
         return parkingIdDTO;
@@ -73,7 +93,18 @@ public class ParkingServiceImpl implements ParkingService {
         parking.setParkingName(parkingName);
         parking.setParkingTotal(parkingTotal);
         parking.setHourPrice(hourPrice);
+
+
+
         return repository.save(parking);
+    }
+
+    @Override
+    public String updateGeo(String parkingId,double longitude,double latitude){
+        //地理位置存入redis
+        Point point = new Point(longitude,latitude);
+        redisGeoUtil.geoAdd(key,point,parkingId);
+        return "更新地理位置成功！";
     }
 
     @Override
@@ -121,5 +152,28 @@ public class ParkingServiceImpl implements ParkingService {
         Integer available = parking.getParkingAvailable();
         parking.setParkingAvailable(available+1);
         return repository.save(parking);
+    }
+
+    @Override
+    public List<ParkingDistanceDTO> radius(double longitude, double latitude){
+        List<ParkingDistanceDTO> parkingDistanceList = new ArrayList<>();
+        //longitude,latitude
+        Circle circle = new Circle(longitude,latitude, 500000);
+        RedisGeoCommands.GeoRadiusCommandArgs args = RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs().includeDistance().sortAscending().limit(6);
+        GeoResults<RedisGeoCommands.GeoLocation<String>> results = redisTemplate.opsForGeo()
+                .radius(key,circle,args);
+//        System.out.println(results);
+
+        for (GeoResult<RedisGeoCommands.GeoLocation<String>> r: results){
+//            System.out.println("name:"+r.getContent().getName()+",distance:"+r.getDistance().in(Metrics.KILOMETERS));
+            Parking parking = findOne(Integer.valueOf(r.getContent().getName()));
+            ParkingDistanceDTO parkingDistance = new ParkingDistanceDTO();
+
+            BeanUtils.copyProperties(parking,parkingDistance);
+            parkingDistance.setDistance(BigDecimal.valueOf(r.getDistance().in(Metrics.KILOMETERS).getValue()).setScale(2,BigDecimal.ROUND_UP));
+            parkingDistanceList.add(parkingDistance);
+
+        }
+        return parkingDistanceList;
     }
 }
